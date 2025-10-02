@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agamy Store — Fashion Forward (Simplified)</title>
+    <title>Agamy Store — Shop</title>
+
+    <!-- Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+
+    <!-- Styles (استخدم نفس ملفاتك الحالية) -->
     <link rel="stylesheet" href="../styles/global.css" />
     <link rel="stylesheet" href="../styles/home.css" />
+    <!-- لو عندك shop.css خصصت فيه products ممكن تضيفه هنا -->
+    <!-- <link rel="stylesheet" href="../styles/shop.css" /> -->
   </head>
+
   <body>
-    <!-- --------------------------------------------------- Navbar---------------------------------------------------- -->
+    <!-- Navbar نفسه بالظبط -->
     <header id="navbar" class="navbar">
       <div class="logo">Agamy<span>Store</span></div>
+
       <nav class="nav" aria-label="Primary">
         <a href="../pages/home.html">Home</a>
-        <a href="../pages/shop.html">Products</a>
-        <a href="#favorites">Favorites</a>
-        <a href="#cart">Cart</a>
+        <a href="../pages/shop.html" class="active">Products</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="cart.html">Cart</a>
       </nav>
+
       <div class="actions">
         <a class="icon-btn" title="Favorites" aria-label="Open favorites">
           <i class="fa-regular fa-heart"></i>
@@ -36,69 +45,15 @@
       </div>
     </header>
 
-    <!-- --------------------------------------------------- Hero---------------------------------------------------- -->
-    <section class="hero" id="home">
-      <div
-        class="slide active"
-        style="background-image: url('../resources/s2.webp')"
-      >
-        <div class="hero-content">
-          <p class="hero-sub">Women Collection</p>
-          <h1>Your Style, Redefined</h1>
-          <p>Discover the latest trends and timeless classics.</p>
-          <a class="btn" href="#products">Shop Now</a>
-        </div>
-      </div>
-      <div class="slide" style="background-image: url('../resources/s1.webp')">
-        <div class="hero-content">
-          <p class="hero-sub">Men Collection</p>
-          <h1>Be Bold, Be You</h1>
-          <p>Fresh arrivals for modern gentlemen.</p>
-          <a class="btn" href="#products">Shop Now</a>
-        </div>
-      </div>
-      <div class="slide" style="background-image: url('../resources/s3.webp')">
-        <div class="hero-content">
-          <p class="hero-sub">Men's New Season Collection</p>
-          <h1>Style for Little Ones</h1>
-          <p>Trendy outfits for your kids.</p>
-          <a class="btn" href="#products">Shop Now</a>
-        </div>
-      </div>
-    </section>
+    <!-- محتوى الصفحة: المنتجات فقط -->
+    <main style="padding-top: 96px">
+      <h2>PRODUCT OVERVIEW</h2>
+      <section class="products" id="products">
+        <!-- JS هيملأ المنتجات هنا -->
+      </section>
+    </main>
 
-    <!-- --------------------------------------------------- Categories ---------------------------------------------------- -->
-    <section class="categories" id="categories">
-      <article class="cat">
-        <img src="../resources/b1.webp" alt="Women" />
-        <div class="overlay"></div>
-        <div class="info">
-          <h3>Women</h3>
-          <p>Spring 2020</p>
-        </div>
-      </article>
-      <article class="cat">
-        <img src="../resources/b2.webp" alt="Men" />
-        <div class="overlay"></div>
-        <div class="info">
-          <h3>Men</h3>
-          <p>Spring 2020</p>
-        </div>
-      </article>
-      <article class="cat">
-        <img src="../resources/b3.webp" alt="Accessories" />
-        <div class="overlay"></div>
-        <div class="info">
-          <h3>Accessories</h3>
-          <p>New Trend</p>
-        </div>
-      </article>
-    </section>
-
-    <h2>PRODUCT OVERVIEW</h2>
-    <section class="products" id="products"></section>
-
-    <!-- ---------------------------------------------------Footer------------------------------------------------------>
+    <!-- Footer نفسه بالظبط -->
     <footer class="footer">
       <div class="foot-wrap">
         <div>
@@ -152,6 +107,8 @@
         <p>Copyright 2025 All rights reserved | Abdelkader</p>
       </div>
     </footer>
-    <script src="../js/home.js"></script>
+
+    <!-- سكريبت الصفحة -->
+    <script src="../js/shop.js"></script>
   </body>
 </html>
