@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+  background: #fafafa;
+}
