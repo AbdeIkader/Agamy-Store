@@ -29,14 +29,16 @@ fetch("https://fakestoreapi.com/products")
         '">' +
         "  </a>" +
         '  <div class="meta">' +
-        '    <h4><a class="view" href="../pages/product.html?id=' +
+        '    <div class="meta-row">' +
+        '      <h4><a class="view" href="../pages/product.html?id=' +
         p.id +
         '">' +
         p.title +
         "</a></h4>" +
-        "    <p class='price'>$" +
+        "      <p class='price'>$" +
         p.price +
         "</p>" +
+        "    </div>" +
         '    <button class="add" data-id="' +
         p.id +
         '">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +

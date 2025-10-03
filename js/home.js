@@ -80,7 +80,7 @@ fetch("https://fakestoreapi.com/products")
         '"><i class="fa-regular fa-heart"></i></button>' +
         '  <a class="view" href="../pages/product.html?id=' +
         p.id +
-        '">' + // ← رابط التفاصيل
+        '">' +
         '    <img src="' +
         p.image +
         '" alt="' +
