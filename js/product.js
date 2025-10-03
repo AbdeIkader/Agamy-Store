@@ -25,19 +25,41 @@ if (!id) {
     .then((r) => r.json())
     .then((p) => {
       root.innerHTML = `
-        <img class="pd-img" src="${p.image}" alt="${p.title}">
-        <div>
-          <h3 class="pd-title">${p.title}</h3>
-          <p class="pd-desc">${p.description}</p>
-          <p class="pd-price">Price: $${p.price}</p>
-          <a class="pd-btn" href="../pages/shop.html">Back to Products</a>
-        </div>
-      `;
+  <img class="pd-img" src="${p.image}" alt="${p.title}">
+  <div>
+    <h3 class="pd-title">${p.title}</h3>
+    <p class="pd-desc">${p.description}</p>
+    <p class="pd-price">Price: $${p.price}</p>
+
+    <div class="pd-actions">
+      <button class="pd-add"
+        data-id="${p.id}"
+        data-title="${p.title.replace(/"/g, "&quot;")}"
+        data-price="${p.price}"
+        data-image="${p.image}">Add to Cart</button>
+
+      <a class="pd-btn" href="../pages/shop.html">Back to Products</a>
+    </div>
+  </div>
+`;
     })
     .catch(() => {
       root.innerHTML = "<p>Failed to load product.</p>";
     });
 }
+
+document.addEventListener("click", function (e) {
+  var b = e.target.closest(".pd-add");
+  if (!b) return;
+  Cart.add({
+    id: Number(b.dataset.id),
+    title: b.dataset.title,
+    price: Number(b.dataset.price),
+    image: b.dataset.image,
+    qty: 1,
+  });
+  alert("Added to cart");
+});
 
 const back = document.querySelector(".pd-back");
 if (back && window.history.length > 1) {

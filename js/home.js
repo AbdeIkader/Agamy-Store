@@ -96,9 +96,20 @@ fetch("https://fakestoreapi.com/products")
         "    <p class='price'>$" +
         p.price +
         "</p>" +
-        '    <button class="add" data-id="' +
+        '    <button class="add" ' +
+        '      data-id="' +
         p.id +
-        '">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
+        '" ' +
+        '      data-title="' +
+        p.title.replace(/"/g, "&quot;") +
+        '" ' +
+        '      data-price="' +
+        p.price +
+        '" ' +
+        '      data-image="' +
+        p.image +
+        '"' +
+        '    >Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
         "  </div>" +
         "</article>";
     }
@@ -112,12 +123,17 @@ document.addEventListener("click", function (e) {
   var btn = e.target.closest(".add");
   if (!btn) return;
 
-  alert("Added to cart (demo)");
-  var cartCount = document.getElementById("cart-count");
-  if (cartCount) {
-    cartCount.textContent = Number(cartCount.textContent) + 1;
-  }
+  Cart.add({
+    id: Number(btn.dataset.id),
+    title: btn.dataset.title,
+    price: Number(btn.dataset.price),
+    image: btn.dataset.image,
+    qty: 1,
+  });
+
+  alert("Added to cart");
 });
+
 document.addEventListener("click", function (e) {
   var favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;

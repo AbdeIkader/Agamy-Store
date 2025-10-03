@@ -1,0 +1,93 @@
+var navbar = document.getElementById("navbar");
+window.addEventListener("scroll", function () {
+  if (window.scrollY > 50) navbar.classList.add("scrolled");
+  else navbar.classList.remove("scrolled");
+});
+var darkToggle = document.getElementById("dark-toggle");
+if (darkToggle) {
+  darkToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark");
+    var icon = darkToggle.querySelector("i");
+    icon.classList.toggle("fa-sun", document.body.classList.contains("dark"));
+    icon.classList.toggle("fa-moon", !document.body.classList.contains("dark"));
+  });
+}
+
+var list = document.getElementById("cart-list");
+var totalEl = document.getElementById("cart-total");
+
+function render() {
+  var cart = Cart.all();
+  if (!cart.length) {
+    list.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    totalEl.textContent = "0.00";
+    Cart.updateBadge();
+    return;
+  }
+
+  var html = "";
+  for (var i = 0; i < cart.length; i++) {
+    var it = cart[i];
+    html +=
+      '<article class="cart-item" data-id="' +
+      it.id +
+      '">' +
+      '  <img src="' +
+      it.image +
+      '" alt="' +
+      it.title +
+      '">' +
+      '  <h4 class="ci-title">' +
+      it.title +
+      "</h4>" +
+      '  <div class="qty">' +
+      '    <button class="qty-btn dec">-</button>' +
+      '    <span class="qty-value">' +
+      it.qty +
+      "</span>" +
+      '    <button class="qty-btn inc">+</button>' +
+      "  </div>" +
+      '  <p class="ci-price">$' +
+      (it.price * it.qty).toFixed(2) +
+      "</p>" +
+      '  <button class="remove" title="Remove"><i class="fa-solid fa-trash"></i></button>' +
+      "</article>";
+  }
+  list.innerHTML = html;
+  totalEl.textContent = Cart.total().toFixed(2);
+  Cart.updateBadge();
+}
+render();
+
+// زرائر + / - / حذف
+list.addEventListener("click", function (e) {
+  var row = e.target.closest(".cart-item");
+  if (!row) return;
+  var id = Number(row.dataset.id);
+
+  if (e.target.closest(".inc")) {
+    var it = Cart.all().find(function (x) {
+      return x.id === id;
+    });
+    Cart.setQty(id, (it ? it.qty : 0) + 1);
+    render();
+  } else if (e.target.closest(".dec")) {
+    var it2 = Cart.all().find(function (x) {
+      return x.id === id;
+    });
+    if (!it2) return;
+    Cart.setQty(id, it2.qty - 1);
+    render();
+  } else if (e.target.closest(".remove")) {
+    Cart.remove(id);
+    render();
+  }
+});
+
+document.getElementById("checkout-btn").addEventListener("click", function () {
+  if (!Cart.all().length) {
+    alert("Your cart is empty.");
+    return;
+  }
+  alert("Proceeding to checkout...\nTotal: $" + Cart.total().toFixed(2));
+});
