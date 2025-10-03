@@ -5,12 +5,22 @@ window.addEventListener("scroll", function () {
 });
 
 var container = document.getElementById("products");
+var urlParams = new URLSearchParams(location.search);
+var selectedCat = urlParams.get("cat");
 
 fetch("https://fakestoreapi.com/products")
   .then(function (res) {
     return res.json();
   })
   .then(function (products) {
+    if (selectedCat) {
+      products = products.filter(function (p) {
+        return p.category === selectedCat;
+      });
+    }
+
+    if (selectedCat)
+      document.querySelector("h2").textContent = selectedCat.toUpperCase();
     var html = "";
     for (var i = 0; i < products.length; i++) {
       var p = products[i];
@@ -47,8 +57,9 @@ fetch("https://fakestoreapi.com/products")
     }
     container.innerHTML = html;
   })
-  .catch(function () {
+  .catch(function (err) {
     container.innerHTML = "<p>Could not load products right now.</p>";
+    console.log(err);
   });
 
 document.addEventListener("click", function (e) {

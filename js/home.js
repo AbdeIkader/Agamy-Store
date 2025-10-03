@@ -158,3 +158,10 @@ darkToggle.addEventListener("click", function () {
     icon.classList.add("fa-moon");
   }
 });
+
+document.querySelectorAll(".cat").forEach(function (el) {
+  el.addEventListener("click", function () {
+    var cat = el.dataset.cat || "";
+    location.href = "../pages/shop.html?cat=" + encodeURIComponent(cat);
+  });
+});
