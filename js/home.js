@@ -73,11 +73,28 @@ fetch("https://fakestoreapi.com/products")
     var html = "";
     for (var i = 0; i < products.length; i++) {
       var p = products[i];
+      var isFav = Fav.has(p.id);
       html +=
         '<article class="card">' +
-        '  <button class="fav-btn" data-id="' +
+        '  <button class="fav-btn ' +
+        (isFav ? "active" : "") +
+        '"' +
+        '          data-id="' +
         p.id +
-        '"><i class="fa-regular fa-heart"></i></button>' +
+        '"' +
+        '          data-title="' +
+        p.title.replace(/"/g, "&quot;") +
+        '"' +
+        '          data-price="' +
+        p.price +
+        '"' +
+        '          data-image="' +
+        p.image +
+        '">' +
+        '    <i class="fa-' +
+        (isFav ? "solid" : "regular") +
+        ' fa-heart"></i>' +
+        "  </button>" +
         '  <a class="view" href="../pages/product.html?id=' +
         p.id +
         '">' +
@@ -138,41 +155,22 @@ document.addEventListener("click", function (e) {
   var favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;
 
-  favBtn.classList.toggle("active");
+  var prod = {
+    id: Number(favBtn.dataset.id),
+    title: favBtn.dataset.title,
+    price: Number(favBtn.dataset.price || 0),
+    image: favBtn.dataset.image,
+  };
+
+  Fav.toggle(prod);
+
+  var active = Fav.has(prod.id);
+  favBtn.classList.toggle("active", active);
   var icon = favBtn.querySelector("i");
+  icon.classList.toggle("fa-solid", active);
+  icon.classList.toggle("fa-regular", !active);
 
-  if (favBtn.classList.contains("active")) {
-    icon.classList.remove("fa-regular");
-    icon.classList.add("fa-solid");
-    alert("Added to favorites (demo)");
-    var favCount = document.getElementById("fav-count");
-    if (favCount) {
-      favCount.textContent = Number(favCount.textContent) + 1;
-    }
-  } else {
-    icon.classList.remove("fa-solid");
-    icon.classList.add("fa-regular");
-    var favCount = document.getElementById("fav-count");
-    if (favCount) {
-      favCount.textContent = Math.max(0, Number(favCount.textContent) - 1);
-    }
-  }
-});
-
-/* --------------------------------------------------Dark Mode Toggle--------------------------------------------------------*/
-var darkToggle = document.getElementById("dark-toggle");
-
-darkToggle.addEventListener("click", function () {
-  document.body.classList.toggle("dark");
-
-  var icon = darkToggle.querySelector("i");
-  if (document.body.classList.contains("dark")) {
-    icon.classList.remove("fa-moon");
-    icon.classList.add("fa-sun");
-  } else {
-    icon.classList.remove("fa-sun");
-    icon.classList.add("fa-moon");
-  }
+  Fav.updateBadge();
 });
 
 document.querySelectorAll(".cat").forEach(function (el) {

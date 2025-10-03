@@ -12,17 +12,21 @@
     <link rel="stylesheet" href="../styles/home.css" />
   </head>
   <body>
-    <!-- --------------------------------------------------- Navbar---------------------------------------------------- -->
     <header id="navbar" class="navbar">
       <div class="logo">Agamy<span>Store</span></div>
       <nav class="nav" aria-label="Primary">
         <a href="../pages/home.html">Home</a>
         <a href="../pages/shop.html">Products</a>
-        <a href="#favorites">Favorites</a>
+        <a href="../pages/favorites.html">Favorites</a>
         <a href="../pages/cart.html">Cart</a>
       </nav>
       <div class="actions">
-        <a class="icon-btn" title="Favorites" aria-label="Open favorites">
+        <a
+          class="icon-btn"
+          title="Favorites"
+          aria-label="Open favorites"
+          href="../pages/favorites.html"
+        >
           <i class="fa-regular fa-heart"></i>
           <span class="badge" id="fav-count">0</span>
         </a>
@@ -41,7 +45,6 @@
       </div>
     </header>
 
-    <!-- --------------------------------------------------- Hero---------------------------------------------------- -->
     <section class="hero" id="home">
       <div
         class="slide active"
@@ -72,7 +75,6 @@
       </div>
     </section>
 
-    <!-- --------------------------------------------------- Categories ---------------------------------------------------- -->
     <section class="categories" id="categories">
       <article class="cat" data-cat="women's clothing">
         <img src="../resources/b1.webp" alt="Women" />
@@ -103,7 +105,6 @@
     <h2>PRODUCT OVERVIEW</h2>
     <section class="products" id="products"></section>
 
-    <!-- ---------------------------------------------------Footer------------------------------------------------------>
     <footer class="footer">
       <div class="foot-wrap">
         <div>
@@ -157,7 +158,10 @@
         <p>Copyright 2025 All rights reserved | Abdelkader</p>
       </div>
     </footer>
+    <script src="../js/darkmode.js"></script>
+
     <script src="../js/cart-storage.js"></script>
+
     <script src="../js/home.js"></script>
   </body>
 </html>

@@ -22,14 +22,24 @@
         <a class="active" href="../pages/cart.html">Cart</a>
       </nav>
       <div class="actions">
-        <a class="icon-btn" title="Favorites"
-          ><i class="fa-regular fa-heart"></i
-          ><span class="badge" id="fav-count">0</span></a
+        <a
+          class="icon-btn"
+          title="Favorites"
+          aria-label="Open favorites"
+          href="../pages/favorites.html"
         >
-        <a class="icon-btn" title="Cart" href="../pages/cart.html"
-          ><i class="fa-solid fa-cart-shopping"></i
-          ><span class="badge" id="cart-count">0</span></a
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge" id="fav-count">0</span>
+        </a>
+        <a
+          class="icon-btn"
+          title="Cart"
+          aria-label="Open cart"
+          href="../pages/cart.html"
         >
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="badge" id="cart-count">0</span>
+        </a>
         <button class="dark-btn" id="dark-toggle" title="Toggle dark mode">
           <i class="fa-solid fa-moon"></i>
         </button>
@@ -93,6 +103,7 @@
         <p>Copyright 2025 All rights reserved | Abdelkader</p>
       </div>
     </footer>
+    <script src="../js/darkmode.js"></script>
 
     <script src="../js/cart-storage.js"></script>
     <script src="../js/cart.js"></script>

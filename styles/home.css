@@ -1,4 +1,3 @@
-/*--------------------------------------------------------- Navbar--------------------------------------------------------- */
 .navbar {
   position: fixed;
   inset: 0 auto auto 0;
@@ -66,6 +65,14 @@ body.dark .nav a {
   height: 36px;
   border-radius: 50%;
 }
+.actions .icon-btn {
+  text-decoration: none;
+  color: #111;
+}
+
+.actions .icon-btn i {
+  color: currentColor;
+}
 .badge {
   position: absolute;
   top: -6px;
@@ -81,13 +88,21 @@ body.dark .nav a {
   padding: 0 4px;
 }
 .dark-btn {
+  text-decoration: none;
+  color: #111;
   background: none;
   border: 0;
   cursor: pointer;
   font-size: 18px;
 }
 
-/*------------------------------------------------------- Hero Section --------------------------------------------------------- */
+.dark-btn i {
+  color: currentColor;
+}
+body.dark .dark-btn {
+  color: #fff;
+}
+
 .hero {
   position: relative;
   height: 100vh;
@@ -168,7 +183,6 @@ body.dark .nav a {
   right: 12px;
 }
 
-/*--------------------------------------------------------- Categories--------------------------------------------------------- */
 .categories {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -240,7 +254,6 @@ h2 {
   font-size: 26px;
 }
 
-/*---------------------------------------------------------Products--------------------------------------------------------- */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -341,7 +354,6 @@ h2 {
   border-color: #111;
 }
 
-/*---------------------------------------------------------Footer--------------------------------------------------------- */
 .footer {
   background: #1c1c1c;
   color: #ccc;
@@ -405,7 +417,6 @@ h2 {
   font-size: 13px;
 }
 
-/*--------------------------------------------------- Dark Mode --------------------------------------------------------*/
 body.dark {
   background: #111;
   color: #eee;
@@ -428,6 +439,22 @@ body.dark .card {
   background: #1a1a1a;
   border-radius: 8px;
   padding: 10px;
+}
+
+body.dark .actions .icon-btn {
+  color: #fff;
+}
+
+.actions .icon-btn:hover {
+  color: #111;
+}
+body.dark .actions .icon-btn:hover {
+  color: #fff;
+}
+
+.actions .icon-btn:focus-visible {
+  outline: 2px solid #6c63ff;
+  outline-offset: 2px;
 }
 
 body.dark .meta h4 {
@@ -457,8 +484,12 @@ body.dark .footer a {
 body.dark .footer a:hover {
   color: #6c63ff;
 }
-
-/*--------------------------------------------------------Small screens--------------------------------------------------------- */
+body.dark .meta h4 a {
+  color: #fff;
+}
+body.dark .meta h4 a:hover {
+  color: #6c63ff;
+}
 @media (max-width: 900px) {
   .navbar {
     padding: 16px 20px;

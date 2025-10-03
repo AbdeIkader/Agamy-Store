@@ -24,11 +24,28 @@ fetch("https://fakestoreapi.com/products")
     var html = "";
     for (var i = 0; i < products.length; i++) {
       var p = products[i];
+      var isFav = Fav.has(p.id);
       html +=
         '<article class="card">' +
-        '  <button class="fav-btn" data-id="' +
+        '  <button class="fav-btn ' +
+        (isFav ? "active" : "") +
+        '"' +
+        '          data-id="' +
         p.id +
-        '"><i class="fa-regular fa-heart"></i></button>' +
+        '"' +
+        '          data-title="' +
+        p.title.replace(/"/g, "&quot;") +
+        '"' +
+        '          data-price="' +
+        p.price +
+        '"' +
+        '          data-image="' +
+        p.image +
+        '">' +
+        '    <i class="fa-' +
+        (isFav ? "solid" : "regular") +
+        ' fa-heart"></i>' +
+        "  </button>" +
         '  <a class="view" href="../pages/product.html?id=' +
         p.id +
         '">' +
@@ -49,9 +66,20 @@ fetch("https://fakestoreapi.com/products")
         p.price +
         "</p>" +
         "    </div>" +
-        '    <button class="add" data-id="' +
+        '    <button class="add" ' +
+        '      data-id="' +
         p.id +
-        '">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
+        '" ' +
+        '      data-title="' +
+        p.title.replace(/"/g, "&quot;") +
+        '" ' +
+        '      data-price="' +
+        p.price +
+        '" ' +
+        '      data-image="' +
+        p.image +
+        '"' +
+        '    >Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
         "  </div>" +
         "</article>";
     }
@@ -65,41 +93,34 @@ fetch("https://fakestoreapi.com/products")
 document.addEventListener("click", function (e) {
   var btn = e.target.closest(".add");
   if (!btn) return;
-  alert("Added to cart (demo)");
-  var cartCount = document.getElementById("cart-count");
-  if (cartCount) cartCount.textContent = Number(cartCount.textContent) + 1;
-});
 
+  Cart.add({
+    id: Number(btn.dataset.id),
+    title: btn.dataset.title,
+    price: Number(btn.dataset.price),
+    image: btn.dataset.image,
+    qty: 1,
+  });
+
+  alert("Added to cart");
+});
 document.addEventListener("click", function (e) {
   var favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;
 
-  favBtn.classList.toggle("active");
+  var prod = {
+    id: Number(favBtn.dataset.id),
+    title: favBtn.dataset.title,
+    price: Number(favBtn.dataset.price || 0),
+    image: favBtn.dataset.image,
+  };
+
+  Fav.toggle(prod);
+
+  var active = Fav.has(prod.id);
+  favBtn.classList.toggle("active", active);
   var icon = favBtn.querySelector("i");
-  var favCount = document.getElementById("fav-count");
-
-  if (favBtn.classList.contains("active")) {
-    icon.classList.replace("fa-regular", "fa-solid");
-    alert("Added to favorites (demo)");
-    if (favCount) favCount.textContent = Number(favCount.textContent) + 1;
-  } else {
-    icon.classList.replace("fa-solid", "fa-regular");
-    if (favCount)
-      favCount.textContent = Math.max(0, Number(favCount.textContent) - 1);
-  }
+  icon.classList.toggle("fa-solid", active);
+  icon.classList.toggle("fa-regular", !active);
+  Fav.updateBadge();
 });
-
-var darkToggle = document.getElementById("dark-toggle");
-if (darkToggle) {
-  darkToggle.addEventListener("click", function () {
-    document.body.classList.toggle("dark");
-    var icon = darkToggle.querySelector("i");
-    if (document.body.classList.contains("dark")) {
-      icon.classList.remove("fa-moon");
-      icon.classList.add("fa-sun");
-    } else {
-      icon.classList.remove("fa-sun");
-      icon.classList.add("fa-moon");
-    }
-  });
-}

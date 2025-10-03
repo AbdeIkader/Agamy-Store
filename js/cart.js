@@ -3,15 +3,6 @@ window.addEventListener("scroll", function () {
   if (window.scrollY > 50) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 });
-var darkToggle = document.getElementById("dark-toggle");
-if (darkToggle) {
-  darkToggle.addEventListener("click", function () {
-    document.body.classList.toggle("dark");
-    var icon = darkToggle.querySelector("i");
-    icon.classList.toggle("fa-sun", document.body.classList.contains("dark"));
-    icon.classList.toggle("fa-moon", !document.body.classList.contains("dark"));
-  });
-}
 
 var list = document.getElementById("cart-list");
 var totalEl = document.getElementById("cart-total");
@@ -59,7 +50,6 @@ function render() {
 }
 render();
 
-// زرائر + / - / حذف
 list.addEventListener("click", function (e) {
   var row = e.target.closest(".cart-item");
   if (!row) return;
@@ -89,5 +79,5 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
     alert("Your cart is empty.");
     return;
   }
-  alert("Proceeding to checkout...\nTotal: $" + Cart.total().toFixed(2));
+  location.href = "../pages/checkout.html";
 });

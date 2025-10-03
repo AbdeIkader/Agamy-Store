@@ -72,3 +72,59 @@
     Cart.updateBadge();
   });
 })();
+
+var Fav = {
+  key: "agamy_favs",
+  all: function () {
+    try {
+      return JSON.parse(localStorage.getItem(this.key) || "[]");
+    } catch (e) {
+      return [];
+    }
+  },
+  save: function (list) {
+    localStorage.setItem(this.key, JSON.stringify(list || []));
+  },
+  count: function () {
+    return this.all().length;
+  },
+  has: function (id) {
+    return this.all().some(function (x) {
+      return x.id === id;
+    });
+  },
+  add: function (prod) {
+    if (this.has(prod.id)) return;
+    var list = this.all();
+    list.push({
+      id: prod.id,
+      title: prod.title,
+      price: prod.price,
+      image: prod.image,
+    });
+    this.save(list);
+    this.updateBadge();
+  },
+  remove: function (id) {
+    this.save(
+      this.all().filter(function (x) {
+        return x.id !== id;
+      })
+    );
+    this.updateBadge();
+  },
+  toggle: function (prod) {
+    if (this.has(prod.id)) this.remove(prod.id);
+    else this.add(prod);
+  },
+  updateBadge: function () {
+    var b = document.getElementById("fav-count");
+    if (b) b.textContent = this.count();
+  },
+};
+window.Fav = Fav;
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.Cart && Cart.updateBadge) Cart.updateBadge();
+  if (window.Fav && Fav.updateBadge) Fav.updateBadge();
+});

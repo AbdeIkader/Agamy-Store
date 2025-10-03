@@ -4,16 +4,6 @@ window.addEventListener("scroll", function () {
   else navbar.classList.remove("scrolled");
 });
 
-var darkToggle = document.getElementById("dark-toggle");
-if (darkToggle) {
-  darkToggle.addEventListener("click", function () {
-    document.body.classList.toggle("dark");
-    var icon = darkToggle.querySelector("i");
-    icon.classList.toggle("fa-sun", document.body.classList.contains("dark"));
-    icon.classList.toggle("fa-moon", !document.body.classList.contains("dark"));
-  });
-}
-
 var params = new URLSearchParams(location.search);
 var id = params.get("id");
 var root = document.getElementById("pd-grid");

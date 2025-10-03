@@ -1,6 +1,7 @@
 .cart-wrap {
   max-width: 1200px;
   margin: 0 auto 40px;
+  min-height: 100vh;
 }
 .cart-list {
   display: grid;
@@ -133,4 +134,11 @@ body.dark .cart-item,
 body.dark .cart-summary {
   background: #151515;
   box-shadow: 0 8px 24px rgba(255, 255, 255, 0.06);
+}
+body.dark .remove i {
+  color: #fff;
+}
+
+body.dark .remove:hover {
+  background: #333;
 }

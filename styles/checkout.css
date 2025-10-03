@@ -1,0 +1,152 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  padding: 0 16px;
+}
+.co-title {
+  margin: 0 0 12px;
+  font-size: 26px;
+}
+.co-main {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.co-card {
+  background: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 12px;
+  padding: 16px;
+}
+.co-left {
+  flex: 1;
+}
+.co-right {
+  width: 320px;
+  top: 110px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.field-row {
+  display: flex;
+  gap: 10px;
+}
+.field-row .field {
+  flex: 1;
+}
+.co-card input,
+.co-card select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+}
+.co-card input:focus,
+.co-card select:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.12);
+}
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.items {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+.item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.item img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: #f6f6f6;
+  border-radius: 8px;
+}
+.item h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.qty button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #e1e1e1;
+  background: #eee;
+  cursor: pointer;
+}
+.price {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.totals {
+  margin-top: 12px;
+}
+.totals div {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+.totals .grand {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.place {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.place:hover {
+  background: #333;
+}
+
+body.dark .co-card {
+  background: #151515;
+  border-color: #333;
+}
+body.dark .co-card input,
+body.dark .co-card select {
+  background: #111;
+  border-color: #333;
+  color: #eee;
+}
+body.dark .item img {
+  background: #1b1b1b;
+}
+
+@media (max-width: 900px) {
+  .co-main {
+    flex-direction: column;
+  }
+  .co-right {
+    width: auto;
+    position: static;
+  }
+}
