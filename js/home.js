@@ -77,26 +77,28 @@ fetch("https://fakestoreapi.com/products")
         '<article class="card">' +
         '  <button class="fav-btn" data-id="' +
         p.id +
-        '">' +
-        '    <i class="fa-regular fa-heart"></i>' +
-        "  </button>" +
-        '  <img src="' +
+        '"><i class="fa-regular fa-heart"></i></button>' +
+        '  <a class="view" href="../pages/product.html?id=' +
+        p.id +
+        '">' + // ← رابط التفاصيل
+        '    <img src="' +
         p.image +
         '" alt="' +
         p.title +
         '">' +
+        "  </a>" +
         '  <div class="meta">' +
-        "    <h4>" +
+        '    <h4><a class="view" href="../pages/product.html?id=' +
+        p.id +
+        '">' +
         p.title +
-        "</h4>" +
+        "</a></h4>" +
         "    <p class='price'>$" +
         p.price +
         "</p>" +
         '    <button class="add" data-id="' +
         p.id +
-        '">' +
-        '      Add To Cart <i class="fa-solid fa-cart-shopping"></i>' +
-        "    </button>" +
+        '">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
         "  </div>" +
         "</article>";
     }

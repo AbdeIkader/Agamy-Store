@@ -1,11 +1,9 @@
-// Navbar on scroll
 var navbar = document.getElementById("navbar");
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 });
 
-// جلب المنتجات وعرضها
 var container = document.getElementById("products");
 
 fetch("https://fakestoreapi.com/products")
@@ -20,26 +18,28 @@ fetch("https://fakestoreapi.com/products")
         '<article class="card">' +
         '  <button class="fav-btn" data-id="' +
         p.id +
+        '"><i class="fa-regular fa-heart"></i></button>' +
+        '  <a class="view" href="../pages/product.html?id=' +
+        p.id +
         '">' +
-        '    <i class="fa-regular fa-heart"></i>' +
-        "  </button>" +
-        '  <img src="' +
+        '    <img src="' +
         p.image +
         '" alt="' +
         p.title +
         '">' +
+        "  </a>" +
         '  <div class="meta">' +
-        "    <h4>" +
+        '    <h4><a class="view" href="../pages/product.html?id=' +
+        p.id +
+        '">' +
         p.title +
-        "</h4>" +
+        "</a></h4>" +
         "    <p class='price'>$" +
         p.price +
         "</p>" +
         '    <button class="add" data-id="' +
         p.id +
-        '">' +
-        '      Add To Cart <i class="fa-solid fa-cart-shopping"></i>' +
-        "    </button>" +
+        '">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
         "  </div>" +
         "</article>";
     }
@@ -49,7 +49,6 @@ fetch("https://fakestoreapi.com/products")
     container.innerHTML = "<p>Could not load products right now.</p>";
   });
 
-// Add to cart (demo)
 document.addEventListener("click", function (e) {
   var btn = e.target.closest(".add");
   if (!btn) return;
@@ -58,7 +57,6 @@ document.addEventListener("click", function (e) {
   if (cartCount) cartCount.textContent = Number(cartCount.textContent) + 1;
 });
 
-// Favorites (demo)
 document.addEventListener("click", function (e) {
   var favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;
@@ -78,7 +76,6 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// Dark mode toggle
 var darkToggle = document.getElementById("dark-toggle");
 if (darkToggle) {
   darkToggle.addEventListener("click", function () {
