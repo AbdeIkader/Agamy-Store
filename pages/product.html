@@ -18,17 +18,18 @@
       <nav class="nav" aria-label="Primary">
         <a href="../pages/home.html">Home</a>
         <a href="../pages/shop.html">Products</a>
-        <a href="#">Favorites</a>
-        <a
-          class="icon-btn"
-          title="Cart"
-          aria-label="Open cart"
-          href="../pages/cart.html"
-        >
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="badge" id="cart-count">0</span>
-        </a>
+
+        <div class="nav-search">
+          <input
+            id="nav-search"
+            type="search"
+            placeholder="Search products..."
+            autocomplete="off"
+          />
+          <div id="nav-suggest" class="suggest hidden"></div>
+        </div>
       </nav>
+
       <div class="actions">
         <a
           class="icon-btn"
@@ -107,6 +108,7 @@
     <script src="../js/darkmode.js"></script>
 
     <script src="../js/cart-storage.js"></script>
+    <script src="../js/search.js"></script>
 
     <script src="../js/product.js"></script>
   </body>

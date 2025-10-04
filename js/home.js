@@ -173,6 +173,12 @@ document.addEventListener("click", function (e) {
   Fav.updateBadge();
 });
 
+fillCategories(ALL_PRODUCTS);
+applyFilters();
+
+document.getElementById("f-search")?.addEventListener("input", applyFilters);
+document.getElementById("f-cat")?.addEventListener("change", applyFilters);
+
 document.querySelectorAll(".cat").forEach(function (el) {
   el.addEventListener("click", function () {
     var cat = el.dataset.cat || "";

@@ -20,9 +20,17 @@
 
       <nav class="nav" aria-label="Primary">
         <a href="../pages/home.html">Home</a>
-        <a href="../pages/shop.html" class="active">Products</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="../pages/cart.html">Cart</a>
+        <a href="../pages/shop.html">Products</a>
+
+        <div class="nav-search">
+          <input
+            id="nav-search"
+            type="search"
+            placeholder="Search products..."
+            autocomplete="off"
+          />
+          <div id="nav-suggest" class="suggest hidden"></div>
+        </div>
       </nav>
 
       <div class="actions">
@@ -110,6 +118,7 @@
     </footer>
     <script src="../js/darkmode.js"></script>
     <script src="../js/cart-storage.js"></script>
+    <script src="../js/search.js"></script>
 
     <script src="../js/shop.js"></script>
   </body>

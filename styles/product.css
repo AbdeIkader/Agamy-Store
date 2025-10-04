@@ -32,7 +32,6 @@
   font-weight: 700;
 }
 .pd-btn {
-  display: inline-block;
   padding: 12px 18px;
   border-radius: 14px;
   background: #111;
@@ -57,9 +56,16 @@
   color: #fff;
   border: 0;
   cursor: pointer;
+  font-size: 16px;
 }
 .pd-add:hover {
   background: #333;
+}
+body.dark .pd-heading,
+body.dark .pd-title,
+body.dark .pd-price,
+body.dark .pd-desc {
+  color: #000 !important;
 }
 
 @media (max-width: 980px) {
