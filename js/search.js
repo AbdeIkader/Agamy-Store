@@ -1,9 +1,9 @@
-var ALL_PRODUCTS = [];
-var input = document.getElementById("nav-search");
-var box = document.getElementById("nav-suggest");
+let ALL_PRODUCTS = [];
+let input = document.getElementById("nav-search");
+let box = document.getElementById("nav-suggest");
 
 function loadProducts() {
-  var cached = localStorage.getItem("agamy_products");
+  let cached = localStorage.getItem("agamy_products");
   if (cached) {
     try {
       ALL_PRODUCTS = JSON.parse(cached) || [];
@@ -48,7 +48,7 @@ function render(list) {
     return;
   }
 
-  var html = list
+  let html = list
     .slice(0, 8)
     .map(
       (p) => `
@@ -70,17 +70,17 @@ function showDefault() {
 }
 
 function filterProducts() {
-  var q = input.value.trim().toLowerCase();
-  var list = !q
+  let q = input.value.trim().toLowerCase();
+  let list = !q
     ? ALL_PRODUCTS
     : ALL_PRODUCTS.filter((p) => p.title.toLowerCase().includes(q));
   render(list);
 }
 
 function handleClick(e) {
-  var row = e.target.closest(".row");
+  let row = e.target.closest(".row");
   if (!row) return;
-  var id = row.dataset.id;
+  let id = row.dataset.id;
   location.href = "../pages/product.html?id=" + encodeURIComponent(id);
 }
 
@@ -105,7 +105,7 @@ function setupSearch() {
   input.addEventListener("keydown", function (e) {
     if (e.key === "Escape") box.classList.add("hidden");
     if (e.key === "Enter") {
-      var first = box.querySelector(".row");
+      let first = box.querySelector(".row");
       if (first) {
         location.href =
           "../pages/product.html?id=" + encodeURIComponent(first.dataset.id);

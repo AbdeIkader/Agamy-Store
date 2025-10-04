@@ -1,14 +1,14 @@
-var navbar = document.getElementById("navbar");
+let navbar = document.getElementById("navbar");
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 });
 
-var list = document.getElementById("cart-list");
-var totalEl = document.getElementById("cart-total");
+let list = document.getElementById("cart-list");
+let totalEl = document.getElementById("cart-total");
 
 function render() {
-  var cart = Cart.all();
+  let cart = Cart.all();
   if (!cart.length) {
     list.innerHTML = '<p class="empty">Your cart is empty.</p>';
     totalEl.textContent = "0.00";
@@ -16,9 +16,9 @@ function render() {
     return;
   }
 
-  var html = "";
-  for (var i = 0; i < cart.length; i++) {
-    var it = cart[i];
+  let html = "";
+  for (let i = 0; i < cart.length; i++) {
+    let it = cart[i];
     html +=
       '<article class="cart-item" data-id="' +
       it.id +
@@ -51,18 +51,18 @@ function render() {
 render();
 
 list.addEventListener("click", function (e) {
-  var row = e.target.closest(".cart-item");
+  let row = e.target.closest(".cart-item");
   if (!row) return;
-  var id = Number(row.dataset.id);
+  let id = Number(row.dataset.id);
 
   if (e.target.closest(".inc")) {
-    var it = Cart.all().find(function (x) {
+    let it = Cart.all().find(function (x) {
       return x.id === id;
     });
     Cart.setQty(id, (it ? it.qty : 0) + 1);
     render();
   } else if (e.target.closest(".dec")) {
-    var it2 = Cart.all().find(function (x) {
+    let it2 = Cart.all().find(function (x) {
       return x.id === id;
     });
     if (!it2) return;

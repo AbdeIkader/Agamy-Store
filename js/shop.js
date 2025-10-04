@@ -1,12 +1,12 @@
-var navbar = document.getElementById("navbar");
+let navbar = document.getElementById("navbar");
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 });
 
-var container = document.getElementById("products");
-var urlParams = new URLSearchParams(location.search);
-var selectedCat = urlParams.get("cat");
+let container = document.getElementById("products");
+let urlParams = new URLSearchParams(location.search);
+let selectedCat = urlParams.get("cat");
 
 fetch("https://fakestoreapi.com/products")
   .then(function (res) {
@@ -21,10 +21,10 @@ fetch("https://fakestoreapi.com/products")
 
     if (selectedCat)
       document.querySelector("h2").textContent = selectedCat.toUpperCase();
-    var html = "";
-    for (var i = 0; i < products.length; i++) {
-      var p = products[i];
-      var isFav = Fav.has(p.id);
+    let html = "";
+    for (let i = 0; i < products.length; i++) {
+      let p = products[i];
+      let isFav = Fav.has(p.id);
       html +=
         '<article class="card">' +
         '  <button class="fav-btn ' +
@@ -91,7 +91,7 @@ fetch("https://fakestoreapi.com/products")
   });
 
 document.addEventListener("click", function (e) {
-  var btn = e.target.closest(".add");
+  let btn = e.target.closest(".add");
   if (!btn) return;
 
   Cart.add({
@@ -105,10 +105,10 @@ document.addEventListener("click", function (e) {
   alert("Added to cart");
 });
 document.addEventListener("click", function (e) {
-  var favBtn = e.target.closest(".fav-btn");
+  let favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;
 
-  var prod = {
+  let prod = {
     id: Number(favBtn.dataset.id),
     title: favBtn.dataset.title,
     price: Number(favBtn.dataset.price || 0),
@@ -117,9 +117,9 @@ document.addEventListener("click", function (e) {
 
   Fav.toggle(prod);
 
-  var active = Fav.has(prod.id);
+  let active = Fav.has(prod.id);
   favBtn.classList.toggle("active", active);
-  var icon = favBtn.querySelector("i");
+  let icon = favBtn.querySelector("i");
   icon.classList.toggle("fa-solid", active);
   icon.classList.toggle("fa-regular", !active);
   Fav.updateBadge();

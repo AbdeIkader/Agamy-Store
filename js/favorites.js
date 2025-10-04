@@ -1,12 +1,12 @@
-var navbar = document.getElementById("navbar");
+let navbar = document.getElementById("navbar");
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 });
 
-var grid = document.getElementById("fav-products");
-var emptyBox = document.getElementById("fav-empty");
-var clearBtn = document.getElementById("fav-clear");
+let grid = document.getElementById("fav-products");
+let emptyBox = document.getElementById("fav-empty");
+let clearBtn = document.getElementById("fav-clear");
 
 render();
 Cart.updateBadge();
@@ -20,15 +20,15 @@ clearBtn.addEventListener("click", function () {
 });
 
 grid.addEventListener("click", function (e) {
-  var rm = e.target.closest(".remove-fav");
+  let rm = e.target.closest(".remove-fav");
   if (rm) {
-    var id = Number(rm.dataset.id);
+    let id = Number(rm.dataset.id);
     Fav.remove(id);
     render();
     return;
   }
 
-  var addBtn = e.target.closest(".add");
+  let addBtn = e.target.closest(".add");
   if (addBtn) {
     Cart.add({
       id: Number(addBtn.dataset.id),
@@ -42,7 +42,7 @@ grid.addEventListener("click", function (e) {
 });
 
 function render() {
-  var favs = Fav.all();
+  let favs = Fav.all();
   if (!favs.length) {
     grid.innerHTML = "";
     emptyBox.hidden = false;
@@ -55,9 +55,9 @@ function render() {
   emptyBox.hidden = true;
   clearBtn.style.display = "inline-block";
 
-  var html = "";
-  for (var i = 0; i < favs.length; i++) {
-    var p = favs[i];
+  let html = "";
+  for (let i = 0; i < favs.length; i++) {
+    let p = favs[i];
     html +=
       '<article class="card">' +
       '  <button class="remove-fav" title="Remove" data-id="' +

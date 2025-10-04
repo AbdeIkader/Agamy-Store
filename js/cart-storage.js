@@ -14,8 +14,8 @@
     all: read,
     save: write,
     add: function (item) {
-      var cart = read();
-      var exist = cart.find(function (x) {
+      let cart = read();
+      let exist = cart.find(function (x) {
         return x.id === item.id;
       });
       if (exist) exist.qty += item.qty || 1;
@@ -31,8 +31,8 @@
       this.updateBadge();
     },
     setQty: function (id, qty) {
-      var cart = read();
-      var it = cart.find(function (x) {
+      let cart = read();
+      let it = cart.find(function (x) {
         return x.id === id;
       });
       if (!it) return;
@@ -63,7 +63,7 @@
       }, 0);
     },
     updateBadge: function () {
-      var b = document.getElementById("cart-count");
+      let b = document.getElementById("cart-count");
       if (b) b.textContent = String(this.count());
     },
   };
@@ -73,7 +73,7 @@
   });
 })();
 
-var Fav = {
+let Fav = {
   key: "agamy_favs",
   all: function () {
     try {
@@ -95,7 +95,7 @@ var Fav = {
   },
   add: function (prod) {
     if (this.has(prod.id)) return;
-    var list = this.all();
+    let list = this.all();
     list.push({
       id: prod.id,
       title: prod.title,
@@ -118,7 +118,7 @@ var Fav = {
     else this.add(prod);
   },
   updateBadge: function () {
-    var b = document.getElementById("fav-count");
+    let b = document.getElementById("fav-count");
     if (b) b.textContent = this.count();
   },
 };

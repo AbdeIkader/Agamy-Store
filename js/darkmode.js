@@ -1,6 +1,6 @@
 function setupThemeToggle() {
-  var toggle = document.getElementById("dark-toggle");
-  var icon = toggle ? toggle.querySelector("i") : null;
+  let toggle = document.getElementById("dark-toggle");
+  let icon = toggle ? toggle.querySelector("i") : null;
 
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
@@ -13,7 +13,7 @@ function setupThemeToggle() {
   if (toggle) {
     toggle.addEventListener("click", function () {
       document.body.classList.toggle("dark");
-      var dark = document.body.classList.contains("dark");
+      let dark = document.body.classList.contains("dark");
 
       localStorage.setItem("theme", dark ? "dark" : "light");
 

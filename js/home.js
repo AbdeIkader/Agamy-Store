@@ -1,4 +1,4 @@
-var navbar = document.getElementById("navbar");
+let navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) {
@@ -8,14 +8,14 @@ window.addEventListener("scroll", function () {
   }
 });
 
-var slides = document.querySelectorAll(".slide");
-var prevBtn = document.querySelector(".prev");
-var nextBtn = document.querySelector(".next");
-var currentIndex = 0;
-var timer;
+let slides = document.querySelectorAll(".slide");
+let prevBtn = document.querySelector(".prev");
+let nextBtn = document.querySelector(".next");
+let currentIndex = 0;
+let timer;
 
 function showSlide(index) {
-  for (var i = 0; i < slides.length; i++) {
+  for (let i = 0; i < slides.length; i++) {
     slides[i].classList.remove("active");
   }
   currentIndex = (index + slides.length) % slides.length;
@@ -48,12 +48,12 @@ if (slides.length > 0) {
   startAutoSlide();
 }
 
-var categories = document.querySelectorAll(".cat");
+let categories = document.querySelectorAll(".cat");
 
 function revealCategories() {
-  var triggerPoint = window.innerHeight * 0.85;
-  for (var i = 0; i < categories.length; i++) {
-    var top = categories[i].getBoundingClientRect().top;
+  let triggerPoint = window.innerHeight * 0.85;
+  for (let i = 0; i < categories.length; i++) {
+    let top = categories[i].getBoundingClientRect().top;
     if (top < triggerPoint) {
       categories[i].classList.add("show");
     }
@@ -63,17 +63,17 @@ function revealCategories() {
 window.addEventListener("scroll", revealCategories);
 revealCategories();
 
-var container = document.getElementById("products");
+let container = document.getElementById("products");
 
 fetch("https://fakestoreapi.com/products")
   .then(function (res) {
     return res.json();
   })
   .then(function (products) {
-    var html = "";
-    for (var i = 0; i < products.length; i++) {
-      var p = products[i];
-      var isFav = Fav.has(p.id);
+    let html = "";
+    for (let i = 0; i < products.length; i++) {
+      let p = products[i];
+      let isFav = Fav.has(p.id);
       html +=
         '<article class="card">' +
         '  <button class="fav-btn ' +
@@ -137,7 +137,7 @@ fetch("https://fakestoreapi.com/products")
   });
 
 document.addEventListener("click", function (e) {
-  var btn = e.target.closest(".add");
+  let btn = e.target.closest(".add");
   if (!btn) return;
 
   Cart.add({
@@ -152,10 +152,10 @@ document.addEventListener("click", function (e) {
 });
 
 document.addEventListener("click", function (e) {
-  var favBtn = e.target.closest(".fav-btn");
+  let favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;
 
-  var prod = {
+  let prod = {
     id: Number(favBtn.dataset.id),
     title: favBtn.dataset.title,
     price: Number(favBtn.dataset.price || 0),
@@ -164,24 +164,21 @@ document.addEventListener("click", function (e) {
 
   Fav.toggle(prod);
 
-  var active = Fav.has(prod.id);
+  let active = Fav.has(prod.id);
   favBtn.classList.toggle("active", active);
-  var icon = favBtn.querySelector("i");
+  let icon = favBtn.querySelector("i");
   icon.classList.toggle("fa-solid", active);
   icon.classList.toggle("fa-regular", !active);
 
   Fav.updateBadge();
 });
 
-fillCategories(ALL_PRODUCTS);
-applyFilters();
-
 document.getElementById("f-search")?.addEventListener("input", applyFilters);
 document.getElementById("f-cat")?.addEventListener("change", applyFilters);
 
 document.querySelectorAll(".cat").forEach(function (el) {
   el.addEventListener("click", function () {
-    var cat = el.dataset.cat || "";
+    let cat = el.dataset.cat || "";
     location.href = "../pages/shop.html?cat=" + encodeURIComponent(cat);
   });
 });

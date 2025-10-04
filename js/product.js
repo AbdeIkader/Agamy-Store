@@ -1,12 +1,12 @@
-var navbar = document.getElementById("navbar");
+let navbar = document.getElementById("navbar");
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) navbar.classList.add("scrolled");
   else navbar.classList.remove("scrolled");
 });
 
-var params = new URLSearchParams(location.search);
-var id = params.get("id");
-var root = document.getElementById("pd-grid");
+let params = new URLSearchParams(location.search);
+let id = params.get("id");
+let root = document.getElementById("pd-grid");
 
 if (!id) {
   root.innerHTML = "<p>Product not found.</p>";
@@ -39,7 +39,7 @@ if (!id) {
 }
 
 document.addEventListener("click", function (e) {
-  var b = e.target.closest(".pd-add");
+  let b = e.target.closest(".pd-add");
   if (!b) return;
   Cart.add({
     id: Number(b.dataset.id),
