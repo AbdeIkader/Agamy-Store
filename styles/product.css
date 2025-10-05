@@ -31,17 +31,6 @@
   margin: 16px 0;
   font-weight: 700;
 }
-.pd-btn {
-  padding: 12px 18px;
-  border-radius: 14px;
-  background: #111;
-  color: #fff;
-  text-decoration: none;
-  transition: 0.3s;
-}
-.pd-btn:hover {
-  background: #333;
-}
 
 .pd-actions {
   display: flex;
@@ -83,5 +72,8 @@ body.dark .pd-desc {
 
   .pd-content {
     max-width: 600px;
+  }
+  .pd-actions {
+    justify-content: center;
   }
 }

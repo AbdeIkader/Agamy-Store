@@ -1,130 +1,85 @@
-(function () {
-  function read() {
+const Cart = {
+  all() {
     try {
       return JSON.parse(localStorage.getItem("cart") || "[]");
     } catch {
       return [];
     }
-  }
-  function write(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
+  },
+  save(list) {
+    localStorage.setItem("cart", JSON.stringify(list));
+  },
+  add(item) {
+    let cart = this.all();
+    let found = cart.find((p) => p.id === item.id);
+    if (found) found.qty += item.qty || 1;
+    else cart.push({ ...item, qty: item.qty || 1 });
+    this.save(cart);
+    this.updateBadge();
+  },
+  setQty(id, qty) {
+    let cart = this.all();
+    let prod = cart.find((p) => p.id === id);
+    if (!prod) return;
+    if (qty <= 0) cart = cart.filter((p) => p.id !== id);
+    else prod.qty = qty;
+    this.save(cart);
+    this.updateBadge();
+  },
+  remove(id) {
+    this.save(this.all().filter((p) => p.id !== id));
+    this.updateBadge();
+  },
+  count() {
+    return this.all().reduce((sum, p) => sum + p.qty, 0);
+  },
+  total() {
+    return this.all().reduce((sum, p) => sum + p.price * p.qty, 0);
+  },
+  updateBadge() {
+    const badge = document.getElementById("cart-count");
+    if (badge) badge.textContent = this.count();
+  },
+};
 
-  window.Cart = {
-    all: read,
-    save: write,
-    add: function (item) {
-      let cart = read();
-      let exist = cart.find(function (x) {
-        return x.id === item.id;
-      });
-      if (exist) exist.qty += item.qty || 1;
-      else
-        cart.push({
-          id: item.id,
-          title: item.title,
-          price: item.price,
-          image: item.image,
-          qty: item.qty || 1,
-        });
-      write(cart);
-      this.updateBadge();
-    },
-    setQty: function (id, qty) {
-      let cart = read();
-      let it = cart.find(function (x) {
-        return x.id === id;
-      });
-      if (!it) return;
-      if (qty <= 0)
-        cart = cart.filter(function (x) {
-          return x.id !== id;
-        });
-      else it.qty = qty;
-      write(cart);
-      this.updateBadge();
-    },
-    remove: function (id) {
-      write(
-        read().filter(function (x) {
-          return x.id !== id;
-        })
-      );
-      this.updateBadge();
-    },
-    count: function () {
-      return read().reduce(function (s, i) {
-        return s + i.qty;
-      }, 0);
-    },
-    total: function () {
-      return read().reduce(function (s, i) {
-        return s + i.price * i.qty;
-      }, 0);
-    },
-    updateBadge: function () {
-      let b = document.getElementById("cart-count");
-      if (b) b.textContent = String(this.count());
-    },
-  };
-
-  document.addEventListener("DOMContentLoaded", function () {
-    Cart.updateBadge();
-  });
-})();
-
-let Fav = {
-  key: "agamy_favs",
-  all: function () {
+const Fav = {
+  all() {
     try {
-      return JSON.parse(localStorage.getItem(this.key) || "[]");
-    } catch (e) {
+      return JSON.parse(localStorage.getItem("favs") || "[]");
+    } catch {
       return [];
     }
   },
-  save: function (list) {
-    localStorage.setItem(this.key, JSON.stringify(list || []));
+  save(list) {
+    localStorage.setItem("favs", JSON.stringify(list));
   },
-  count: function () {
-    return this.all().length;
+  has(id) {
+    return this.all().some((p) => p.id === id);
   },
-  has: function (id) {
-    return this.all().some(function (x) {
-      return x.id === id;
-    });
-  },
-  add: function (prod) {
+  add(prod) {
     if (this.has(prod.id)) return;
     let list = this.all();
-    list.push({
-      id: prod.id,
-      title: prod.title,
-      price: prod.price,
-      image: prod.image,
-    });
+    list.push(prod);
     this.save(list);
     this.updateBadge();
   },
-  remove: function (id) {
-    this.save(
-      this.all().filter(function (x) {
-        return x.id !== id;
-      })
-    );
+  remove(id) {
+    this.save(this.all().filter((p) => p.id !== id));
     this.updateBadge();
   },
-  toggle: function (prod) {
-    if (this.has(prod.id)) this.remove(prod.id);
-    else this.add(prod);
+  toggle(prod) {
+    this.has(prod.id) ? this.remove(prod.id) : this.add(prod);
   },
-  updateBadge: function () {
-    let b = document.getElementById("fav-count");
-    if (b) b.textContent = this.count();
+  count() {
+    return this.all().length;
+  },
+  updateBadge() {
+    const badge = document.getElementById("fav-count");
+    if (badge) badge.textContent = this.count();
   },
 };
-window.Fav = Fav;
 
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.Cart && Cart.updateBadge) Cart.updateBadge();
-  if (window.Fav && Fav.updateBadge) Fav.updateBadge();
+document.addEventListener("DOMContentLoaded", () => {
+  Cart.updateBadge();
+  Fav.updateBadge();
 });

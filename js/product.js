@@ -27,8 +27,6 @@ if (!id) {
         data-title="${p.title.replace(/"/g, "&quot;")}"
         data-price="${p.price}"
         data-image="${p.image}">Add to Cart</button>
-
-      <a class="pd-btn" href="../pages/shop.html">Back to Products</a>
     </div>
   </div>
 `;
@@ -50,11 +48,3 @@ document.addEventListener("click", function (e) {
   });
   alert("Added to cart");
 });
-
-const back = document.querySelector(".pd-back");
-if (back && window.history.length > 1) {
-  back.addEventListener("click", function (e) {
-    e.preventDefault();
-    history.back();
-  });
-}

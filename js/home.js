@@ -1,4 +1,7 @@
 let navbar = document.getElementById("navbar");
+let slides = document.querySelectorAll(".slide");
+let currentIndex = 0;
+let timer;
 
 window.addEventListener("scroll", function () {
   if (window.scrollY > 50) {
@@ -7,12 +10,6 @@ window.addEventListener("scroll", function () {
     navbar.classList.remove("scrolled");
   }
 });
-
-let slides = document.querySelectorAll(".slide");
-let prevBtn = document.querySelector(".prev");
-let nextBtn = document.querySelector(".next");
-let currentIndex = 0;
-let timer;
 
 function showSlide(index) {
   for (let i = 0; i < slides.length; i++) {
@@ -29,156 +26,96 @@ function startAutoSlide() {
   }, 3000);
 }
 
-if (prevBtn) {
-  prevBtn.addEventListener("click", function () {
-    showSlide(currentIndex - 1);
-    startAutoSlide();
-  });
-}
-
-if (nextBtn) {
-  nextBtn.addEventListener("click", function () {
-    showSlide(currentIndex + 1);
-    startAutoSlide();
-  });
-}
-
 if (slides.length > 0) {
   showSlide(0);
   startAutoSlide();
 }
 
-let categories = document.querySelectorAll(".cat");
-
-function revealCategories() {
-  let triggerPoint = window.innerHeight * 0.85;
-  for (let i = 0; i < categories.length; i++) {
-    let top = categories[i].getBoundingClientRect().top;
-    if (top < triggerPoint) {
-      categories[i].classList.add("show");
-    }
-  }
-}
-
-window.addEventListener("scroll", revealCategories);
-revealCategories();
-
 let container = document.getElementById("products");
 
 fetch("https://fakestoreapi.com/products")
-  .then(function (res) {
-    return res.json();
+  .then((res) => res.json())
+  .then((products) => {
+    container.innerHTML = "";
+
+    products.forEach((p) => {
+      let card = document.createElement("article");
+      card.className = "card";
+
+      let favBtn = document.createElement("button");
+      favBtn.className = "fav-btn" + (Fav.has(p.id) ? " active" : "");
+      favBtn.dataset.id = p.id;
+      favBtn.dataset.title = p.title;
+      favBtn.dataset.price = p.price;
+      favBtn.dataset.image = p.image;
+      favBtn.innerHTML = `<i class="fa-${
+        Fav.has(p.id) ? "solid" : "regular"
+      } fa-heart"></i>`;
+      card.appendChild(favBtn);
+
+      let link = document.createElement("a");
+      link.href = `../pages/product.html?id=${p.id}`;
+      link.className = "view";
+      link.innerHTML = `<img src="${p.image}" alt="${p.title}">`;
+      card.appendChild(link);
+
+      let meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `
+        <h4><a href="../pages/product.html?id=${p.id}">${p.title}</a></h4>
+        <p class="price">$${p.price}</p>
+        <button class="add" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-image="${p.image}">
+          Add To Cart <i class="fa-solid fa-cart-shopping"></i>
+        </button>
+      `;
+      card.appendChild(meta);
+
+      container.appendChild(card);
+    });
   })
-  .then(function (products) {
-    let html = "";
-    for (let i = 0; i < products.length; i++) {
-      let p = products[i];
-      let isFav = Fav.has(p.id);
-      html +=
-        '<article class="card">' +
-        '  <button class="fav-btn ' +
-        (isFav ? "active" : "") +
-        '"' +
-        '          data-id="' +
-        p.id +
-        '"' +
-        '          data-title="' +
-        p.title.replace(/"/g, "&quot;") +
-        '"' +
-        '          data-price="' +
-        p.price +
-        '"' +
-        '          data-image="' +
-        p.image +
-        '">' +
-        '    <i class="fa-' +
-        (isFav ? "solid" : "regular") +
-        ' fa-heart"></i>' +
-        "  </button>" +
-        '  <a class="view" href="../pages/product.html?id=' +
-        p.id +
-        '">' +
-        '    <img src="' +
-        p.image +
-        '" alt="' +
-        p.title +
-        '">' +
-        "  </a>" +
-        '  <div class="meta">' +
-        '    <h4><a class="view" href="../pages/product.html?id=' +
-        p.id +
-        '">' +
-        p.title +
-        "</a></h4>" +
-        "    <p class='price'>$" +
-        p.price +
-        "</p>" +
-        '    <button class="add" ' +
-        '      data-id="' +
-        p.id +
-        '" ' +
-        '      data-title="' +
-        p.title.replace(/"/g, "&quot;") +
-        '" ' +
-        '      data-price="' +
-        p.price +
-        '" ' +
-        '      data-image="' +
-        p.image +
-        '"' +
-        '    >Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>' +
-        "  </div>" +
-        "</article>";
-    }
-    container.innerHTML = html;
-  })
-  .catch(function () {
+  .catch(() => {
     container.innerHTML = "<p>Could not load products right now.</p>";
   });
 
-document.addEventListener("click", function (e) {
+document.addEventListener("click", (e) => {
   let btn = e.target.closest(".add");
   if (!btn) return;
 
   Cart.add({
-    id: Number(btn.dataset.id),
+    id: +btn.dataset.id,
     title: btn.dataset.title,
-    price: Number(btn.dataset.price),
+    price: +btn.dataset.price,
     image: btn.dataset.image,
     qty: 1,
   });
 
-  alert("Added to cart");
+  alert("Added to cart!");
 });
 
-document.addEventListener("click", function (e) {
+document.addEventListener("click", (e) => {
   let favBtn = e.target.closest(".fav-btn");
   if (!favBtn) return;
 
   let prod = {
-    id: Number(favBtn.dataset.id),
+    id: +favBtn.dataset.id,
     title: favBtn.dataset.title,
-    price: Number(favBtn.dataset.price || 0),
+    price: +favBtn.dataset.price,
     image: favBtn.dataset.image,
   };
 
   Fav.toggle(prod);
 
-  let active = Fav.has(prod.id);
-  favBtn.classList.toggle("active", active);
-  let icon = favBtn.querySelector("i");
-  icon.classList.toggle("fa-solid", active);
-  icon.classList.toggle("fa-regular", !active);
-
+  let isFav = Fav.has(prod.id);
+  favBtn.classList.toggle("active", isFav);
+  favBtn.querySelector("i").className = `fa-${
+    isFav ? "solid" : "regular"
+  } fa-heart`;
   Fav.updateBadge();
 });
 
-document.getElementById("f-search")?.addEventListener("input", applyFilters);
-document.getElementById("f-cat")?.addEventListener("change", applyFilters);
-
-document.querySelectorAll(".cat").forEach(function (el) {
-  el.addEventListener("click", function () {
-    let cat = el.dataset.cat || "";
-    location.href = "../pages/shop.html?cat=" + encodeURIComponent(cat);
+document.querySelectorAll(".cat").forEach((cat) => {
+  cat.addEventListener("click", () => {
+    let category = cat.dataset.cat || "";
+    location.href = `../pages/shop.html?cat=${encodeURIComponent(category)}`;
   });
 });

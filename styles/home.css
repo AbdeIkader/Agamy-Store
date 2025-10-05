@@ -261,44 +261,18 @@ body.dark .dark-btn {
 .btn:hover {
   filter: brightness(0.9);
 }
-.ctrl {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 0;
-  background: rgba(255, 255, 255, 0.7);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-}
-.ctrl.prev {
-  left: 12px;
-}
-.ctrl.next {
-  right: 12px;
-}
-
 .categories {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   padding: 90px 56px;
-  cursor: pointer;
 }
 .cat {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-.cat.show {
-  transform: translateY(0);
-  opacity: 1;
+  cursor: pointer;
 }
 .cat img {
   width: 100%;
@@ -503,7 +477,7 @@ h2 {
   cursor: pointer;
 }
 .newsletter button:hover {
-  transition: 3s;
+  transition: 0.3s;
   background-color: #4f44ff;
 }
 .foot-bottom {
@@ -547,11 +521,6 @@ body.dark .actions .icon-btn {
 }
 body.dark .actions .icon-btn:hover {
   color: #fff;
-}
-
-.actions .icon-btn:focus-visible {
-  outline: 2px solid #6c63ff;
-  outline-offset: 2px;
 }
 
 body.dark .meta h4 {
